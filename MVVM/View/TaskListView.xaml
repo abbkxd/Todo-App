@@ -1,0 +1,21 @@
+﻿<UserControl x:Class="Todo_UserControls.MVVM.View.TaskListView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Todo_UserControls.MVVM.View"
+             mc:Ignorable="d" 
+             Height="Auto" Width="Auto">
+    <Grid Background="WhiteSmoke">
+        <ListView ItemsSource="{Binding Tasks}" SelectedItem="{Binding SelectedTask}">
+            <ListView.View>
+                <GridView >
+                    <GridViewColumn Header="Task" DisplayMemberBinding="{Binding eventHead}"/>
+                    <GridViewColumn Header="Description" DisplayMemberBinding="{Binding eventDescp}"/>
+                    <GridViewColumn Header="Date" DisplayMemberBinding="{Binding eventDate}"/>
+                    <GridViewColumn Header="Status" DisplayMemberBinding="{Binding eventStatus}"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+    </Grid>
+</UserControl>

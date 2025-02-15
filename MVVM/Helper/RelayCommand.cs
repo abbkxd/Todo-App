@@ -7,10 +7,10 @@ namespace Todo_UserControls.MVVM.Helper
         private readonly Action<object> _execute;
         private readonly Func<object,bool> canExecute;
 
-        public RelayCommand()
+        public RelayCommand( Action<object> execute,Func<object, bool>? canExecute=null)
         {
-            this._execute = _execute!;
-            this.canExecute = canExecute!;
+            this._execute = execute;
+            this.canExecute = canExecute;
         }
         public event EventHandler? CanExecuteChanged
         {

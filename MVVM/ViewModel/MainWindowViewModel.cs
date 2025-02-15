@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.Windows;
 using Todo_UserControls.MVVM.Helper;
 using Todo_UserControls.MVVM.Model;
 
@@ -40,10 +41,16 @@ namespace Todo_UserControls.MVVM.ViewModel
         public MainWindowViewModel()
         {
             Tasks = new ObservableCollection<TodoTask>();
-            FilteredTasks = new ObservableCollection<TodoTask>(Tasks);//Addiing Tasks observable collection to FilteredTasks
+            FilteredTasks = new ObservableCollection<TodoTask>(Tasks); // Adding Tasks observable collection to FilteredTasks
 
-           
+            Tasks.Add(new TodoTask { eventHead = "Buy groceries", eventDescp = "Milk, Eggs, Bread", eventDate = DateTime.Now.AddDays(1) });
+            Tasks.Add(new TodoTask { eventHead = "Complete homework", eventDescp = "Math exercises", eventDate = DateTime.Now.AddDays(2) });
 
+            addTaskCommand = new RelayCommand(_execute => AddTask(), canExecute => true);
+            updateTaskCommand = new RelayCommand(_execute => UpdateTask(), canExecute => (SelectedTask != null));
+            deleteTaskCommand = new RelayCommand(_execute => DeleteTask(), canExecute=>(SelectedTask != null));
+            
+            sortTasksCommand = new RelayCommand(_execute => SortTasks("Date"), canExecute => true);
         }
 
         private void DeleteTask()
@@ -60,7 +67,7 @@ namespace Todo_UserControls.MVVM.ViewModel
         }
         private void UpdateTask()
         {
-            // UI will automatically update due to data binding
+            //Already Assigned TwoWay Binding in XAML
         }
         private void MarkTaskAsCompleted()
         {
@@ -89,8 +96,11 @@ namespace Todo_UserControls.MVVM.ViewModel
 
         private void SortTasks(string parameter)
         {
+            IEnumerable<TodoTask> sortedTasks = FilteredTasks; // default, in case none match
+
             switch (parameter)
             {
+
                 case "Date":
                     FilteredTasks = new ObservableCollection<TodoTask>(FilteredTasks.OrderBy(t => t.eventDate));
                     break;
@@ -100,8 +110,13 @@ namespace Todo_UserControls.MVVM.ViewModel
                 case "Status":
                     FilteredTasks = new ObservableCollection<TodoTask>(FilteredTasks.OrderBy(t => t.eventStatus));
                     break;
+               
             }
-            OnPropertyChanged(nameof(FilteredTasks));
+            FilteredTasks.Clear();
+            foreach (var task in sortedTasks)
+            {
+                FilteredTasks.Add(task);
+            }
         }
     }
 }

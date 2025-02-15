@@ -3,11 +3,47 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Todo_UserControls"
-        mc:Ignorable="d"
-        Title="Todo App" Height="450" Width="400">
-    <Grid>
+        xmlns:local="clr-namespace:Todo_UserControls.MVVM.View"
+        WindowState="Maximized"
         
+        
+        mc:Ignorable="d"
+        
+        Title="Todo App" Height="450" Width="400">
+
+    
+
+    <Grid>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="9*"/>
+        </Grid.RowDefinitions>
+
+        <local:TaskListView Grid.Row="1" Grid.Column="1"/>
+        
+        <local:TaskListUpdate Grid.Row="1" Grid.Column="0"/>
+
+        
+        <StackPanel Orientation="Vertical" 
+               Grid.Row="0" Grid.Column="1">
+            <Button Content="Add Task" Command="{Binding addTaskCommand}"/>
+            <Button Content="Delete Task" Command="{Binding deleteTaskCommand}" Margin="0,5,0,5"/>
+            <Button Content="Sort by Status" Command="{Binding sortTasksCommand}" 
+                    CommandParameter="Status"/>
+
+
+        </StackPanel>
+
+
+
+
+
 
     </Grid>
 </Window>
