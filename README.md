@@ -18,6 +18,9 @@ This ToDo App project has user control enabled features and follows the MVVM (Mo
 ## ViewModel
 
 - **MainWindowViewModel**: Manages the application's data and commands, ensuring a clear separation of concerns between the UI and business logic.
+  
+## Dependency Injection
+- The project leverages dependency injection to manage dependencies and improve testability. The dependency injection setup is configured in the `App.xaml` file. This setup helps in registering services, view models, and other dependencies required by the application.
 
 ## Issues
 
